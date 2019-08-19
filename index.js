@@ -6,6 +6,8 @@ import bodyParser from 'body-parser';
 import rotas from "./rotas";
 import config from "./config";
 import mongoose from "mongoose";
+import error from './errorHandler'
+
 
 //=======================
 //  Configuração
@@ -30,6 +32,9 @@ app.use(bodyParser.json())
 //=====================
 
 rotas(app);
+
+//Modulo de erro
+app.use(error);
 
 //=================
 // Start do sevidor
