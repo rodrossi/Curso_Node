@@ -2,6 +2,7 @@ import express from 'express';
 import usuarioService from "../service/usuarioService"
 import {check, validationResult} from "express-validator/check"
 import helper from './controllerHelper'
+import produtoService from "../service/produtoService"
 
 var router = express.Router();
 
@@ -32,5 +33,8 @@ router.put("/:id", function (req,res, next) {
 });
 router.delete("/:id", function (req,res, next) {
     usuarioService.deletar(req.params.id, res).catch(err => next(err))
+});
+router.get('/:id/produtos', function (req, res, next) {
+    produtoService.findByUser(req.params.id, res).catch(err => next(err))
 });
 export default router;

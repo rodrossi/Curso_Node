@@ -39,6 +39,6 @@ app.use(error);
 //=================
 // Start do sevidor
 //=================
-app.listen(8081);
-console.log("Servidor OK na porta 8081")
+app.listen(8082);
+console.log("Servidor OK na porta 8082")
 

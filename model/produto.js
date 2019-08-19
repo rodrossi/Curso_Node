@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Usuario from "./usuario";
 
 //=============================
 //Importando o mongo e o schema
@@ -8,7 +9,7 @@ var Schema = mongoose.Schema;
 //===================
 //Criando instancias
 //===================
-export default mongoose.model("produto", new Schema({
+var modelo = new Schema({
     nome: {
         type: String,
         required: [function(){
@@ -28,5 +29,12 @@ export default mongoose.model("produto", new Schema({
             return this.valor > 1000000
         }, "Valor não poder maior que 1000000"]
 
-    }
-}))
+    },
+    createBy:{type: mongoose.Schema.Types.ObjectId, ref: "usuario"}
+})
+
+modelo.statics.findByUser = async function(id){
+    var user = await Usuario.findOne({_id: id}).exec()
+    return await this.find().where({createBy: user._id}).populate("createBy").exec();
+}
+export default mongoose.model("produto", modelo) 
